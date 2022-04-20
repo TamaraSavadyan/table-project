@@ -1,1 +1,1 @@
-# test-table-project
+# test-table-Django-project
