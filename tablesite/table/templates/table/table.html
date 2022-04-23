@@ -4,28 +4,81 @@
 Table
 {% endblock %}
 
-<div class="container">
-  {% block content %}
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Name</th>
-        <th scope="col">Amount of goods</th>
-        <th scope="col">Distance, km</th>
-      </tr>
-    </thead>
-  </table>
-  {{ table_content }}
-  <script type="text/javascript" charset="utf-8">
 
-    fetch('https://jsonplaceholder.typicode.com/todos')
-              .then(function (response) {
-                  return response.json();
-              }).then(function (apiJsonData) {
-                  console.log(apiJsonData);
-              })
+{% block content %}
+<!DOCTYPE html>
+<html>
 
-  </script>
+<head>
+  <title>Data Grid</title>
+  <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.noStyle.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+</head>
+
+<body>
+
+  <style>
+    #data-table {
+      height: 500px;
+      width: 100%;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td,
+    th {
+      border: 1px solid #000000;
+      text-align: left;
+      padding: 8px;
+    }
+  </style>
+
+  <h1>Table Contents</h1>
+
+  <body>
+    <div id="data-table" class="ag-theme-balham">
+    </div>
+
+    <script type="text/javascript" charset="utf-8">
+
+      const columnDefs = [
+        { field: 'date' },
+        { field: 'name' },
+        { field: 'amount' },
+        { field: 'distance' },
+      ];
+
+      const gridOptions = {
+        defaultColDef: {
+          sortable: true,
+          filter: 'agTextColumnFilter',
+          resizable: true
+        },
+
+        pagination: true,
+
+        columnDefs: columnDefs,
+        onGridReady: (event) => { renderDataInTheTable(event.api) }
+      };
+
+      const eGridDiv = document.getElementById('data-table');
+      new agGrid.Grid(eGridDiv, gridOptions);
+
+      function renderDataInTheTable(api) {
+        fetch('./db.json')
+          .then(function (response) {
+            return response.json();
+          }).then(function (data) {
+            api.setRowData(data);
+            api.sizeColumnsToFit();
+          })
+      }
+    </script>
+  </body>
   {% endblock %}
-</div>
+
+
