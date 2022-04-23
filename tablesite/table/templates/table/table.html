@@ -1,0 +1,31 @@
+{% extends 'table/base.html' %}
+
+{% block title %}
+Table
+{% endblock %}
+
+<div class="container">
+  {% block content %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Name</th>
+        <th scope="col">Amount of goods</th>
+        <th scope="col">Distance, km</th>
+      </tr>
+    </thead>
+  </table>
+  {{ table_content }}
+  <script type="text/javascript" charset="utf-8">
+
+    fetch('https://jsonplaceholder.typicode.com/todos')
+              .then(function (response) {
+                  return response.json();
+              }).then(function (apiJsonData) {
+                  console.log(apiJsonData);
+              })
+
+  </script>
+  {% endblock %}
+</div>
