@@ -1,4 +1,4 @@
-# test-table-Django-project
+# table-project
 ## Some comments for HR manager from Welbex
 
 Я не успела исправить все баги, но всё-таки хочу показать, что сделала. 
