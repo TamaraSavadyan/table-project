@@ -22,6 +22,5 @@ urlpatterns = [
     path('', views.home),
     path('table/', views.table),
     path('admin/', admin.site.urls)
-    
 ]
 
